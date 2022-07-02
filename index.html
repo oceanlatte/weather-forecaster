@@ -10,7 +10,7 @@
     
 </head>
 <body>
-    <header>
+    <header class="py-1">
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
     <!-- Boostrap container -->
@@ -18,10 +18,10 @@
         <!-- Sidebar search and results-->
         <aside class="col-md-4 col-lg-3 vh-100 mx-4 mt-4">
             <h2>Search for a City:</h2>
-            <form class="d-grid gap-2 mb-2">
+            <form class="d-grid gap-2 mb-3">
                 <label for="search"></label>
                 <input type="search" id="city-search"/>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary mb-3">Search</button>
             </form>
             
             <div class="history d-grid gap-2">
@@ -32,7 +32,7 @@
         
         <!-- Results Container-->
         <div class="col-md-8 col-lg-9 d-row justify-content-between">
-            <main class="search-result border border-dark my-4 px-2">
+            <main class="search-result border border-dark my-4 px-2 rounded">
                 <h2 id="city-name">Searched City Here</h2>
                 <p class="weather-result">Temp: <span class="result"></span></p>
                 <p class="weather-result">Wind: <span class="result"></span></p>
