@@ -1,11 +1,12 @@
-/* Add header styling gradient */
+/* header gradient */
 header {
   background-image: linear-gradient(to right top, #000099, #0521b2, #0739cc, #054fe5, #0066ff);
   color: white;
 }
 
-/* add search history divider */
+/* search history divider */
 form {
   border-bottom: 2px gray solid;
 }
 
+/* Add search box shadow */
