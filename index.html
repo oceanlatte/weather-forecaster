@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecaster</title>
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <aside>
+        <h2>Search for a City:</h2>
+        <form>
+            <label for="search"></label>
+            <input type="search" id="city-search"/>
+            <button type="submit">Search</button>
+        </form>
+        <div class="history">
+            <!-- History list here  -->
+        </div>
+    </aside>
+
+    <main class="search-result">
+        <h2 id="city-name">Searched City Here</h2>
+        <p class="weather-result">Temp: <span class="result"></span></p>
+        <p class="weather-result">Wind: <span class="result"></span></p>
+        <p class="weather-result">Humidity: <span class="result"></span></p>
+        <p class="weather-result">UV Index: <span class="result"></span></p>
+    </main>
+
+    <div class="forecast-cards">
+        <h3 class="five-day-result">5-Day Forecast:</h3>
+        <div class="cards">Card 1</div>
+        <div class="cards">Card 2</div>
+        <div class="cards"></div>
+        <div class="cards"></div>
+        <div class="cards"></div>
+    </div>
+
+
+    
+</body>
+</html>
