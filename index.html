@@ -14,23 +14,25 @@
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
     <!-- Boostrap container -->
-    <div class="container d-flex">
+    <div class="container d-flex justify-content-between w-100 m-1">
         <!-- Sidebar search and results-->
-        <aside class="col-4 vh-100">
+        <aside class="col-md-4 col-lg-3 vh-100 mx-4 mt-4">
             <h2>Search for a City:</h2>
-            <form>
+            <form class="d-grid gap-2 mb-2">
                 <label for="search"></label>
                 <input type="search" id="city-search"/>
-                <button type="submit">Search</button>
+                <button type="submit" class="btn btn-primary">Search</button>
             </form>
-            <div class="history">
+            
+            <div class="history d-grid gap-2">
                 <!-- History list here  -->
+                <button type="submit" class="btn btn-secondary">History1</button>
             </div>
         </aside>
         
         <!-- Results Container-->
-        <div class="col-8">
-            <main class="search-result border border-dark">
+        <div class="col-md-8 col-lg-9 d-row justify-content-between">
+            <main class="search-result border border-dark my-4 px-2">
                 <h2 id="city-name">Searched City Here</h2>
                 <p class="weather-result">Temp: <span class="result"></span></p>
                 <p class="weather-result">Wind: <span class="result"></span></p>
@@ -38,13 +40,16 @@
                 <p class="weather-result">UV Index: <span class="result"></span></p>
             </main>
 
-            <div class="forecast-cards">
+            <!--Forecast Cards-->
+            <div class="five-day-forecast">
                 <h3 class="five-day-result">5-Day Forecast:</h3>
-                <div class="cards">Card 1</div>
-                <div class="cards">Card 2</div>
-                <div class="cards">Card 3</div>
-                <div class="cards">Card 4</div>
-                <div class="cards">Card 5</div>
+                <div class="forecast-cards d-flex flex-wrap justify-content-between">
+                    <div class="card p-1">Card 1</div>
+                    <div class="card p-1">Card 2</div>
+                    <div class="card p-1">Card 3</div>
+                    <div class="card p-1">Card 4</div>
+                    <div class="card p-1">Card 5</div>
+                </div>
             </div>
         </div>
     </div>
