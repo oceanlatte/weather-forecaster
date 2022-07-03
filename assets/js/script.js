@@ -67,7 +67,21 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
         // display UV index
         // !!! ADD: UV index indicator !!!!
         var uvi = data.current.uvi;
-        $("#uvi").text(uvi);
+        if (uvi <= 2) {
+          $("#uvi").text(uvi)
+          .css("backgroundColor", "green")
+          .css("color", "white");
+        }
+        else if (uvi > 2 && uvi <= 5) {
+          $("#uvi").text(uvi)
+          .css("backgroundColor", "#ff9900")
+          .css("color", "white");
+        }
+        else {
+          $("#uvi").text(uvi)
+          .css("backgroundColor", "#800000")
+          .css("color", "white");
+        }
         fiveDay(data);
       })
     })
@@ -75,6 +89,10 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
 
 // 5 day forecast
 function fiveDay(weatherData) {
+  // remove any cards from another city search
+  $(".card").remove();
+
+  // generate information for each card
   for(var i = 1; i < 6; i++) {
     var cardContainer = $("<div>").addClass("card p-2");
 
@@ -84,7 +102,7 @@ function fiveDay(weatherData) {
       .text(newDate)
     ;
     
-    // add icon
+    // !!! add icon here
 
     var dayTemp = weatherData.daily[i].temp.day;
     var cardTemp = $("<p>")
@@ -104,6 +122,8 @@ function fiveDay(weatherData) {
       .text("Humidity: " + dayHumid + "%")
     ;
 
+    // !!! ADD Icon to list of appended children !!!
+    
     cardContainer.append(cardHeader, cardTemp, cardWind, cardHumid)
     $(".forecast-cards").append(cardContainer);
   }
