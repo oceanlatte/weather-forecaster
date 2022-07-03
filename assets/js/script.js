@@ -49,7 +49,7 @@ function currentCity(city) {
 
 // pass lat and lon through function to get city's weather in Results Container
 function getWeather(lat, lon) {
-  var weatherLatLon = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely&units=imperial&appid=f29b5f7344e0cd4053782f0fead48c61"; 
+  var weatherLatLon = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=f29b5f7344e0cd4053782f0fead48c61"; 
   
   fetch(weatherLatLon)
     .then(function(response) {
@@ -72,6 +72,9 @@ function getWeather(lat, lon) {
     })
 };
 
+// 5 day forecast
+
+
 // History buttons, generate button for each city search
 function searchHistory(city) {
   var historyButtons = $("<button>")
@@ -85,9 +88,6 @@ function searchHistory(city) {
     currentCity(savedCity);
   })
 }
-
-// 5 day forecast
-
 
 
 // handle bad responses
