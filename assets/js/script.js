@@ -36,10 +36,17 @@ function getWeather(lat, lon) {
       response.json()
       .then(function(data){
         console.log(data);
-        var temp = console.log("temp", data.current.temp);
-        var wind = console.log("windspeed", Math.floor(data.current.wind_speed));
-        var humidity = console.log("humidity", data.current.humidity);
-        var uvi = console.log("UV index", data.current.uvi)
+        var temp = Math.floor(data.current.temp);
+        $("#temp").text(temp + "\u00B0");
+
+        var wind = Math.floor(data.current.wind_speed);
+        $("#wind").text(wind + " mph");
+
+        var humidity = data.current.humidity;
+        $("#humidity").text(humidity + "%");
+
+        var uvi = data.current.uvi;
+        $("#uvi").text(uvi + " of 10");
       })
     })
 };
