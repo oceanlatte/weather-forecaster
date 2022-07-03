@@ -1,14 +1,16 @@
-var searchedCity = $("#city-search").val(); // city name searched val
-
 // get location lat and long
-var weatherByName = "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=1&appid=f29b5f7344e0cd4053782f0fead48c61";
 var lat = "";
 var lon = "";
 
 // search button
 
 $("#search-weather").on("click", function(event) {
+  $("#city-name-header").text("");
   event.preventDefault();
+  var searchedCity = $("#city-search").val(); // city name searched val
+
+  var weatherByName = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchedCity + "&limit=1&appid=f29b5f7344e0cd4053782f0fead48c61";
+  console.log("Searched Name, line 12", searchedCity);
 
   fetch(weatherByName)
     .then(function(response){
@@ -17,11 +19,12 @@ $("#search-weather").on("click", function(event) {
         console.log(data);
         var lat = data[0].lat;
         var lon = data[0].lon;
+
+        var cityHeader = data[0].name + ", " + data[0].state;
+        $("#city-name-header").text(cityHeader);
         getWeather(lat, lon);
       });
     });
-  // show values 
-  console.log("clicked search button");
 }); 
 
 // pass lat and lon through new function to get city's weather
@@ -33,9 +36,7 @@ function getWeather(lat, lon) {
       response.json()
       .then(function(data){
         console.log(data);
-
         var temp = console.log("temp", data.current.temp);
-        $("#temp").text(temp);
         var wind = console.log("windspeed", Math.floor(data.current.wind_speed));
         var humidity = console.log("humidity", data.current.humidity);
         var uvi = console.log("UV index", data.current.uvi)
