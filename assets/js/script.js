@@ -1,9 +1,8 @@
 var todaysDate = moment().format("MM/DD/YY");
 
 // searched city value to get the lat and lon
-function currentCity() {
-  var searchedCity = $("#city-search").val(); // city name searched val
-  var weatherByName = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchedCity + "&limit=1&appid=f29b5f7344e0cd4053782f0fead48c61";
+function currentCity(city) {
+  var weatherByName = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=f29b5f7344e0cd4053782f0fead48c61";
 
   fetch(weatherByName)
     .then(function(response){
@@ -25,12 +24,28 @@ function currentCity() {
 
         // pass values to next function
         getWeather(lat, lon);
-        searchHistory(searchedCity);
+        searchHistory(city);
+        // historyChecker(city);
       });
     });
     var formEl = document.querySelector("#search-form");
     formEl.reset();
 }
+
+// function historyChecker(city) {
+//   var matchCity = $("#history:contains(city)");
+//   console.log(matchCity);
+
+//   var historyCheck = $("#history.has(button)");
+//   console.log(historyCheck, "history check for children")
+
+//   // if (!historyCheck) {
+//   //   searchHistory(city);
+//   // }
+//   // else {
+//   //   console.log("not empty");
+//   // }
+// }
 
 // pass lat and lon through function to get city's weather in Results Container
 function getWeather(lat, lon) {
@@ -50,23 +65,29 @@ function getWeather(lat, lon) {
         var humidity = data.current.humidity;
         $("#humidity").text(humidity + "%");
         // display UV index
-        // ADD: UV index 
+        // !!! ADD: UV index indicator !!!!
         var uvi = data.current.uvi;
-        $("#uvi").text(uvi + " of 10");
+        $("#uvi").text(uvi);
       })
     })
 };
 
-// button history 
+// History buttons, generate button for each city search
 function searchHistory(city) {
   var historyButtons = $("<button>")
-  .addClass("btn btn-secondary")
-  .text(city);
-
+    .addClass("btn btn-secondary city-history")
+    .text(city);
   $("#history").append(historyButtons);
+
+  // on click of history buttons run through weather function again
+  $(".city-history").on("click", function(){
+    var savedCity = $(this).text();
+    currentCity(savedCity);
+  })
 }
 
 // 5 day forecast
+
 
 
 // handle bad responses
@@ -75,6 +96,6 @@ function searchHistory(city) {
 // Click search button handler
 $("#search-weather").on("click", function(event) {
   event.preventDefault();
-  $("#city-search").text("");
-  currentCity();
+  var searchedCity = $("#city-search").val(); // city name searched value
+  currentCity(searchedCity);
 });
