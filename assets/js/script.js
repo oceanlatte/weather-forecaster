@@ -28,7 +28,8 @@ function currentCity() {
         searchHistory(searchedCity);
       });
     });
-    searchedCity.reset();
+    var formEl = document.querySelector("#search-form");
+    formEl.reset();
 }
 
 // pass lat and lon through function to get city's weather in Results Container
