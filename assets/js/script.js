@@ -75,7 +75,6 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
 
 // 5 day forecast
 function fiveDay(weatherData) {
-
   for(var i = 1; i < 6; i++) {
     var cardContainer = $("<div>").addClass("card p-2");
 
@@ -104,11 +103,10 @@ function fiveDay(weatherData) {
       .addClass("card-result mb-2")
       .text("Humidity: " + dayHumid + "%")
     ;
+
     cardContainer.append(cardHeader, cardTemp, cardWind, cardHumid)
-    
     $(".forecast-cards").append(cardContainer);
   }
- 
 }
 
 

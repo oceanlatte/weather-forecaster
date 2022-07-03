@@ -10,3 +10,9 @@ form {
 }
 
 /* Add search box shadow */
+
+/* Card Background */
+.card {
+  background-color: #0c3a68;
+  color: white;
+}
