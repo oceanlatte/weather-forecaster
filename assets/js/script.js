@@ -19,15 +19,16 @@ function currentCity() {
         $("#city-name-header")
           .text(cityHeader + " (" + todaysDate + ")");
 
-
         // !!!!!! ADD: weather icon to end of header!!!!!!!
         // var weatherIcon = data.current.weather[0].icon;
         // console.log(weatherIcon);
 
         // pass values to next function
         getWeather(lat, lon);
+        searchHistory(searchedCity);
       });
     });
+    searchedCity.reset();
 }
 
 // pass lat and lon through function to get city's weather in Results Container
@@ -47,7 +48,8 @@ function getWeather(lat, lon) {
         // dispay humidity
         var humidity = data.current.humidity;
         $("#humidity").text(humidity + "%");
-        // idisplay UV index
+        // display UV index
+        // ADD: UV index 
         var uvi = data.current.uvi;
         $("#uvi").text(uvi + " of 10");
       })
@@ -55,9 +57,19 @@ function getWeather(lat, lon) {
 };
 
 // button history 
+function searchHistory(city) {
+  var historyButtons = $("<button>")
+  .addClass("btn btn-secondary")
+  .text(city);
 
+  $("#history").append(historyButtons);
+}
 
 // 5 day forecast
+
+
+// handle bad responses
+
 
 // Click search button handler
 $("#search-weather").on("click", function(event) {

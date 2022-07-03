@@ -11,10 +11,12 @@
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
+
   <body>
     <header class="py-1">
       <h1 class="text-center">Weather Dashboard</h1>
     </header>
+
     <!-- Boostrap container -->
     <div class="container d-flex justify-content-between w-100 m-1">
       <!-- Sidebar search and results-->
@@ -22,17 +24,13 @@
         <h2>Search for a City:</h2>
         <form class="d-grid gap-2 mb-3">
           <label for="search"></label>
-          <input type="search" id="city-search" />
-          <button
-            type="submit"
-            class="btn btn-primary mb-3"
-            id="search-weather"
-          >
+          <input type="search" placeholder="City Name" id="city-search"/>
+          <button type="submit" class="btn btn-primary mb-3" id="search-weather">
             Search
           </button>
         </form>
 
-        <div class="history d-grid gap-2">
+        <div class="d-grid gap-2" id="history">
           <!-- History list here  -->
           <button type="submit" class="btn btn-secondary">History1</button>
         </div>
