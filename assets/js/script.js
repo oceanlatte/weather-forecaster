@@ -47,8 +47,8 @@ function currentCity(city) {
 //   // }
 // }
 
-// pass lat and lon through function to get city's weather in Results Container
-function getWeather(lat, lon) {
+
+function getWeather(lat, lon) { // pass lat and lon through function to get city's weather in Results Container
   var weatherLatLon = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=f29b5f7344e0cd4053782f0fead48c61"; 
   
   fetch(weatherLatLon)
@@ -68,11 +68,48 @@ function getWeather(lat, lon) {
         // !!! ADD: UV index indicator !!!!
         var uvi = data.current.uvi;
         $("#uvi").text(uvi);
+        fiveDay(data);
       })
     })
 };
 
 // 5 day forecast
+function fiveDay(weatherData) {
+
+  for(var i = 1; i < 6; i++) {
+    var cardContainer = $("<div>").addClass("card p-2");
+
+    var newDate = moment.unix(weatherData.daily[i].dt).format("M/D/YY");
+    var cardHeader = $("<h4>")
+      .addClass("fs-5")
+      .text(newDate)
+    ;
+    
+    // add icon
+
+    var dayTemp = weatherData.daily[i].temp.day;
+    var cardTemp = $("<p>")
+      .addClass("card-result mb-2")
+      .text("Temp: " + dayTemp + " \u00B0F")
+    ;
+   
+    var dayWind = weatherData.daily[i].wind_speed;
+    var cardWind = $("<p>")
+      .addClass("card-result mb-2")
+      .text("Wind: " + dayWind + " MPH")
+    ;
+
+    var dayHumid = weatherData.daily[i].humidity;
+    var cardHumid = $("<p>")
+      .addClass("card-result mb-2")
+      .text("Humidity: " + dayHumid + "%")
+    ;
+    cardContainer.append(cardHeader, cardTemp, cardWind, cardHumid)
+    
+    $(".forecast-cards").append(cardContainer);
+  }
+ 
+}
 
 
 // History buttons, generate button for each city search
