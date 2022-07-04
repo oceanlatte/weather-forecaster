@@ -18,10 +18,6 @@ function currentCity(city) {
         $("#city-name-header")
           .text(cityHeader + " (" + todaysDate + ")");
 
-        // !!!!!! ADD: weather icon to end of header!!!!!!!
-        // var weatherIcon = data.current.weather[0].icon;
-        // console.log(weatherIcon);
-
         // pass values to next function
         getWeather(lat, lon);
         searchHistory(city);
@@ -55,6 +51,12 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
     .then(function(response) {
       response.json().then(function(data){
         console.log(data);
+  
+        // weather icon 
+        var weatherIcon = data.current.weather[0].icon;
+        console.log("header icon", weatherIcon);
+        $("#icon").attr("src", "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
+
         // display temp
         var temp = Math.floor(data.current.temp);
         $("#temp").text(temp + "\u00B0F");
@@ -65,9 +67,7 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
         var humidity = data.current.humidity;
         $("#humidity").text(humidity + "%");
         // display UV index
-        // !!! ADD: UV index indicator !!!!
         var uvi = data.current.uvi;
-
         // UV index conditional
         if (uvi <= 2) {
           $("#uvi").text(uvi)
@@ -105,7 +105,17 @@ function fiveDay(weatherData) {
       .text(newDate)
     ;
     
-    // !!! add icon here
+    var dayIcon = weatherData.daily[i].weather[0].icon;
+    console.log(dayIcon);
+    var createIcon = $("<img>")
+      .attr("src", "http://openweathermap.org/img/wn/" + dayIcon +"@2x.png")
+    ;
+
+    var cardIcon = $("<p>")
+    .addClass("card-result mb-2")
+    .text(createIcon)
+    ;
+
 
     var dayTemp = weatherData.daily[i].temp.day;
     var cardTemp = $("<p>")
@@ -127,7 +137,7 @@ function fiveDay(weatherData) {
 
     // !!! ADD Icon to list of appended children !!!
     
-    cardContainer.append(cardHeader, cardTemp, cardWind, cardHumid)
+    cardContainer.append(cardHeader, cardIcon, cardTemp, cardWind, cardHumid)
     $(".forecast-cards").append(cardContainer);
   }
 }
