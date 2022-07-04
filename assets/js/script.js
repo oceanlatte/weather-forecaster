@@ -1,3 +1,4 @@
+var searchArr = [];
 var todaysDate = moment().format("MM/DD/YY");
 
 // searched city value to get the lat and lon
@@ -9,7 +10,6 @@ function currentCity(city) {
       response.json()
       .then(function(data){
         // get lattitue and longitude from city name search
-        console.log(data);
         var lat = data[0].lat;
         var lon = data[0].lon;
 
@@ -149,10 +149,32 @@ function searchHistory(city) {
 
 // handle bad responses
 
+// set localStorage
+function cityStorage(search) {
+  if (localStorage.getItem("cities") == null) {
+    localStorage.setItem("cities", searchArr);
+  }
+  else {
+  searchArr.push(search);
+  localStorage.setItem("cities", JSON.stringify(searchArr));
+  }
+};
+
+function loadStorage() {
+  var previousCity = JSON.parse(localStorage.getItem("cities"));
+
+  for (var i = 0; i < previousCity.length; i++) {
+    searchHistory(previousCity[i]);
+  }
+};
+
 
 // Click search button handler
 $("#search-weather").on("click", function(event) {
   event.preventDefault();
   var searchedCity = $("#city-search").val(); // city name searched value
   currentCity(searchedCity);
+  cityStorage(searchedCity);
 });
+
+loadStorage();
