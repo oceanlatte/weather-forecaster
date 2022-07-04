@@ -67,6 +67,8 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
         // display UV index
         // !!! ADD: UV index indicator !!!!
         var uvi = data.current.uvi;
+
+        // UV index conditional
         if (uvi <= 2) {
           $("#uvi").text(uvi)
           .css("backgroundColor", "green")
@@ -96,6 +98,7 @@ function fiveDay(weatherData) {
   for(var i = 1; i < 6; i++) {
     var cardContainer = $("<div>").addClass("card p-2");
 
+    // format Unix UTC to date
     var newDate = moment.unix(weatherData.daily[i].dt).format("M/D/YY");
     var cardHeader = $("<h4>")
       .addClass("fs-5")
@@ -107,7 +110,7 @@ function fiveDay(weatherData) {
     var dayTemp = weatherData.daily[i].temp.day;
     var cardTemp = $("<p>")
       .addClass("card-result mb-2")
-      .text("Temp: " + dayTemp + " \u00B0F")
+      .text("Temp: " + Math.floor(dayTemp) + " \u00B0F")
     ;
    
     var dayWind = weatherData.daily[i].wind_speed;
@@ -128,7 +131,6 @@ function fiveDay(weatherData) {
     $(".forecast-cards").append(cardContainer);
   }
 }
-
 
 // History buttons, generate button for each city search
 function searchHistory(city) {
