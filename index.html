@@ -1,58 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Forecaster</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+
+  <body>
     <header class="py-1">
-        <h1 class="text-center">Weather Dashboard</h1>
+      <h1 class="text-center">Weather Dashboard</h1>
     </header>
+
     <!-- Boostrap container -->
     <div class="container d-flex justify-content-between w-100 m-1">
-        <!-- Sidebar search and results-->
-        <aside class="col-md-4 col-lg-3 vh-100 mx-4 mt-4">
-            <h2>Search for a City:</h2>
-            <form class="d-grid gap-2 mb-3">
-                <label for="search"></label>
-                <input type="search" id="city-search"/>
-                <button type="submit" class="btn btn-primary mb-3">Search</button>
-            </form>
-            
-            <div class="history d-grid gap-2">
-                <!-- History list here  -->
-                <button type="submit" class="btn btn-secondary">History1</button>
-            </div>
-        </aside>
-        
-        <!-- Results Container-->
-        <div class="col-md-8 col-lg-9 d-row justify-content-between">
-            <main class="search-result border border-dark my-4 px-2 rounded">
-                <h2 id="city-name">Searched City Here</h2>
-                <p class="weather-result">Temp: <span class="result"></span></p>
-                <p class="weather-result">Wind: <span class="result"></span></p>
-                <p class="weather-result">Humidity: <span class="result"></span></p>
-                <p class="weather-result">UV Index: <span class="result"></span></p>
-            </main>
+      <!-- Sidebar search and results-->
+      <aside class="col-md-4 col-lg-3 mx-4 mt-4">
+        <h2>Search for a City:</h2>
+        <form class="d-grid gap-2 mb-3" id="search-form">
+          <label for="search"></label>
+          <input type="search" placeholder="City Name" id="city-search"/>
+          <button type="submit" class="btn btn-primary mb-3" id="search-weather">
+            Search
+          </button>
+        </form>
 
-            <!--Forecast Cards-->
-            <div class="five-day-forecast">
-                <h3 class="five-day-result">5-Day Forecast:</h3>
-                <div class="forecast-cards d-flex flex-wrap justify-content-between">
-                    <div class="card p-1">Card 1</div>
-                    <div class="card p-1">Card 2</div>
-                    <div class="card p-1">Card 3</div>
-                    <div class="card p-1">Card 4</div>
-                    <div class="card p-1">Card 5</div>
-                </div>
-            </div>
+        <div class="d-grid gap-2" id="history">
+          <!-- Button Search History list appended here-->
+          <!-- <button class="btn btn-secondary city-history">City Name</button> -->
         </div>
+      </aside>
+
+      <!-- Results Container-->
+      <div class="col-md-8 col-lg-9 d-row justify-content-between">
+        <main class="search-result border border-dark my-4 px-2 rounded">
+          <h2 id="city-name-header">Search a City!</h2>
+          <img id="icon"/>
+          <p class="weather-result fw-semibold">Temp: <span class="fw-normal" id="temp"></span></p>
+          <p class="weather-result fw-semibold">Wind: <span class="fw-normal" id="wind"></span></p>
+          <p class="weather-result fw-semibold">Humidity: <span class="fw-normal" id="humidity"></span></p>
+          <p class="weather-result fw-semibold">UV Index: <span class="fw-normal" id="uvi"></span></p>
+        </main>
+
+        <!--Forecast Cards-->
+        <div class="five-day-forecast">
+          <h3 class="five-day-result mb-4">5-Day Forecast:</h3>
+          <div class="forecast-cards d-flex flex-wrap justify-content-evenly m-4 mb-2">
+            <!-- <div class="card p-2">
+                <h4 class="fs-5">MM/DD/YY</h4>
+                <p class="card-result mb-2">Icon Here</p>
+                <p class="card-result mb-2">Temp: 76 deg</p>
+                <p class="card-result mb-2">Wind: 30MPH</p>
+                <p class="card-result mb-2">Humidity: 500%</p> 
+            </div> -->
+          </div>
+        </div>
+
+      </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./assets/js/script.js"></script>
-</body>
+  </body>
 </html>
