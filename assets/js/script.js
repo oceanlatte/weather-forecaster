@@ -16,7 +16,6 @@ function cityStorage(search) {
 
 // Click on History Buttons
 $("#history").on("click", "button", function() {
-  console.log("clicked");
   var savedCity = $(this).text();
   currentCity(savedCity);
 });
@@ -37,6 +36,10 @@ function currentCity(city) {
     .then(function(response){
       response.json()
       .then(function(data){
+        if (!data[0]) {
+          alert("Location is not found.")
+        }
+        else {
         // get lattitue and longitude from city name search
         var lat = data[0].lat;
         var lon = data[0].lon;
@@ -48,6 +51,7 @@ function currentCity(city) {
 
         // pass values to next function
         getWeather(lat, lon);
+        }
       });
     });
     var formEl = document.querySelector("#search-form");
@@ -60,12 +64,12 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
   fetch(weatherLatLon)
     .then(function(response) {
       response.json().then(function(data){
-        console.log(data);
-  
         // weather icon 
         var weatherIcon = data.current.weather[0].icon;
-        console.log("header icon", weatherIcon);
-        $("#icon").attr("src", "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
+        var headerIcon = document.querySelector("#icon");
+        headerIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
+        var iconDescription = data.current.weather[0].description;
+        headerIcon.setAttribute("alt", iconDescription);
 
         // display temp
         var temp = Math.floor(data.current.temp);
@@ -116,16 +120,15 @@ function fiveDay(weatherData) {
     ;
     
     var dayIcon = weatherData.daily[i].weather[0].icon;
-    console.log(dayIcon);
-    var createIcon = $("<img>")
-      .attr("src", "http://openweathermap.org/img/wn/" + dayIcon +"@2x.png")
-    ;
+    var dayIconDescription = weatherData.daily[i].weather[0].description;
+    var createIcon = document.createElement("img");
+    createIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + dayIcon +"@2x.png");
+    createIcon.setAttribute("alt", dayIconDescription);
 
     var cardIcon = $("<p>")
     .addClass("card-result mb-2")
-    .text(createIcon)
+    .append(createIcon)
     ;
-
 
     var dayTemp = weatherData.daily[i].temp.day;
     var cardTemp = $("<p>")
@@ -144,15 +147,11 @@ function fiveDay(weatherData) {
       .addClass("card-result mb-2")
       .text("Humidity: " + dayHumid + "%")
     ;
-
-    // !!! ADD Icon to list of appended children !!!
     
     cardContainer.append(cardHeader, cardIcon, cardTemp, cardWind, cardHumid)
     $(".forecast-cards").append(cardContainer);
   }
-}
-
-// handle bad responses
+};
 
 function loadStorage() {
   var previousCity = JSON.parse(localStorage.getItem("cities"));
