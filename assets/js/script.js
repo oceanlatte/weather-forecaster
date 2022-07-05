@@ -85,16 +85,19 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
         // UV index conditional
         if (uvi <= 2) {
           $("#uvi").text(uvi)
+          .addClass("rounded px-1")
           .css("backgroundColor", "green")
           .css("color", "white");
         }
         else if (uvi > 2 && uvi <= 5) {
           $("#uvi").text(uvi)
+          .addClass("rounded px-1")
           .css("backgroundColor", "#ff9900")
           .css("color", "white");
         }
         else {
           $("#uvi").text(uvi)
+          .addClass("rounded px-1")
           .css("backgroundColor", "#800000")
           .css("color", "white");
         }
