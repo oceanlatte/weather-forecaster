@@ -1,4 +1,33 @@
+var searchArr = [];
 var todaysDate = moment().format("MM/DD/YY");
+
+// set localStorage
+function cityStorage(search) {
+  if (localStorage.getItem("cities") == null) {
+    localStorage.setItem("cities", searchArr);
+  }
+  else {
+  searchArr.push(search);
+  localStorage.setItem("cities", JSON.stringify(searchArr));
+  }
+  currentCity(search);
+  searchHistory(search);
+};
+
+// Click on History Buttons
+$("#history").on("click", "button", function() {
+  console.log("clicked");
+  var savedCity = $(this).text();
+  currentCity(savedCity);
+});
+
+// History buttons, generate button for each city search
+function searchHistory(city) {
+  var historyButtons = $("<button>")
+    .addClass("btn btn-secondary city-history")
+    .text(city);
+  $("#history").append(historyButtons);
+};
 
 // searched city value to get the lat and lon
 function currentCity(city) {
@@ -9,7 +38,6 @@ function currentCity(city) {
       response.json()
       .then(function(data){
         // get lattitue and longitude from city name search
-        console.log(data);
         var lat = data[0].lat;
         var lon = data[0].lon;
 
@@ -20,29 +48,11 @@ function currentCity(city) {
 
         // pass values to next function
         getWeather(lat, lon);
-        searchHistory(city);
-        // historyChecker(city);
       });
     });
     var formEl = document.querySelector("#search-form");
     formEl.reset();
 }
-
-// function historyChecker(city) {
-//   var matchCity = $("#history:contains(city)");
-//   console.log(matchCity);
-
-//   var historyCheck = $("#history.has(button)");
-//   console.log(historyCheck, "history check for children")
-
-//   // if (!historyCheck) {
-//   //   searchHistory(city);
-//   // }
-//   // else {
-//   //   console.log("not empty");
-//   // }
-// }
-
 
 function getWeather(lat, lon) { // pass lat and lon through function to get city's weather in Results Container
   var weatherLatLon = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=f29b5f7344e0cd4053782f0fead48c61"; 
@@ -142,27 +152,21 @@ function fiveDay(weatherData) {
   }
 }
 
-// History buttons, generate button for each city search
-function searchHistory(city) {
-  var historyButtons = $("<button>")
-    .addClass("btn btn-secondary city-history")
-    .text(city);
-  $("#history").append(historyButtons);
-
-  // on click of history buttons run through weather function again
-  $(".city-history").on("click", function(){
-    var savedCity = $(this).text();
-    currentCity(savedCity);
-  })
-}
-
-
 // handle bad responses
 
+function loadStorage() {
+  var previousCity = JSON.parse(localStorage.getItem("cities"));
+
+  for (var i = 0; i < previousCity.length; i++) {
+    searchHistory(previousCity[i]);
+  }
+};
 
 // Click search button handler
 $("#search-weather").on("click", function(event) {
   event.preventDefault();
   var searchedCity = $("#city-search").val(); // city name searched value
-  currentCity(searchedCity);
+  cityStorage(searchedCity);
 });
+
+loadStorage();
