@@ -30,7 +30,7 @@ function searchHistory(city) {
 
 // searched city value to get the lat and lon
 function currentCity(city) {
-  var weatherByName = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=f29b5f7344e0cd4053782f0fead48c61";
+  var weatherByName = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=f29b5f7344e0cd4053782f0fead48c61";
 
   fetch(weatherByName)
     .then(function(response){
@@ -67,7 +67,7 @@ function getWeather(lat, lon) { // pass lat and lon through function to get city
         // weather icon 
         var weatherIcon = data.current.weather[0].icon;
         var headerIcon = document.querySelector("#icon");
-        headerIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
+        headerIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
         var iconDescription = data.current.weather[0].description;
         headerIcon.setAttribute("alt", iconDescription);
 
@@ -125,7 +125,7 @@ function fiveDay(weatherData) {
     var dayIcon = weatherData.daily[i].weather[0].icon;
     var dayIconDescription = weatherData.daily[i].weather[0].description;
     var createIcon = document.createElement("img");
-    createIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + dayIcon +"@2x.png");
+    createIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + dayIcon +"@2x.png");
     createIcon.setAttribute("alt", dayIconDescription);
 
     var cardIcon = $("<p>")
